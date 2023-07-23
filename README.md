@@ -4,5 +4,7 @@
 	- Created Spring Repository
 
 ## [23 jul 2023]
-	- Property Injection by: 
+	- Property Injection By: 
 		Value Tag, Value Attribute and P schema
+	- Property Injection By:
+		list, set, map
