@@ -13,3 +13,8 @@
 	- Property Injection By Reference Type
 	- Constructor Injection
 	- Added List in Constructor Injection
+
+### [25 jul 2023]
+	- implementing lifecycle methods of spring bean "Using XML"
+	- created two bean methods: init and destroy
+	- used AbstractApplicationContext interface for registerShutDownHook()
