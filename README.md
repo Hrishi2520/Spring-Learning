@@ -19,3 +19,4 @@
 	
 	- Using XML (init-method, destroy-method), AbstractApplicationContext interface(registerShutDownHook).
 	- implementing interfaces i) initializingBean ii)isposableBean
+	- Using Annotations @PostConstruct and @PreDestroy

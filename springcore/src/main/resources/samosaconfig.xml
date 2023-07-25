@@ -8,9 +8,19 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/spring-context.xsd">
 
+<!--    bye using this tag we enable all the annotations in our application.-->
+<!--    i was having error with this tag-->
+<!--    <context:annotation-config/>-->
+
     <!--here we used init-method and destroy method-->
-    <bean class="com.springcore.lifecycle.Samosa" name="samosa" p:price="10" init-method="init" destroy-method="destroy"/>
+<!--    <bean class="com.springcore.lifecycle.Samosa" name="samosa" p:price="10" init-method="init" destroy-method="destroy"/>-->
 
 <!--    second bean for pepsi class-->
-    <bean class="com.springcore.lifecycle.Pepsi" name="pepsi" p:price="20"/>
+<!--    <bean class="com.springcore.lifecycle.Pepsi" name="pepsi" p:price="20"/>-->
+
+<!--    third bean for Example class we are using annotations-->
+    <bean class="com.springcore.lifecycle.Example" name="example" p:subject="java"/>
+
+<!--    if you want to enable only PostConstruct Nad PreDestroy annotation use following tag -->
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
 </beans>
