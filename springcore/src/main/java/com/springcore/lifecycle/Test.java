@@ -15,6 +15,12 @@ public class Test {
 
 //        registering shutdown hook
         context.registerShutdownHook();
+
+        System.out.println("---------------------");
+
+        Pepsi pepsi = (Pepsi) context.getBean("pepsi");
+
+        System.out.println(pepsi);
     }
 
 

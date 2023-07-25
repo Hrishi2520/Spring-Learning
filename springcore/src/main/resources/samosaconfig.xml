@@ -10,4 +10,7 @@
 
     <!--here we used init-method and destroy method-->
     <bean class="com.springcore.lifecycle.Samosa" name="samosa" p:price="10" init-method="init" destroy-method="destroy"/>
+
+<!--    second bean for pepsi class-->
+    <bean class="com.springcore.lifecycle.Pepsi" name="pepsi" p:price="20"/>
 </beans>

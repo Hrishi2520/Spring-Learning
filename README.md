@@ -15,6 +15,7 @@
 	- Added List in Constructor Injection
 
 ### [25 jul 2023]
-	- implementing lifecycle methods of spring bean "Using XML"
-	- created two bean methods: init and destroy
-	- used AbstractApplicationContext interface for registerShutDownHook()
+	* Implementing Bean lifecycle methods
+	
+	- Using XML (init-method, destroy-method), AbstractApplicationContext interface(registerShutDownHook).
+	- implementing interfaces i) initializingBean ii)isposableBean
