@@ -35,3 +35,6 @@
 
 	* Autowiring in XML by using:
 	- byName, byType, constructor.
+
+	*Autowiring using Annotation on:
+	- setter methos, property, constructore.
