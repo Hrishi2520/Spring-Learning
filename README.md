@@ -32,3 +32,6 @@
 	Disadvantage: 
 	- No control of programmer
 	- no use for primitive and String values
+
+	* Autowiring in XML by using:
+	- byName, byType, constructor.
