@@ -15,5 +15,9 @@
     </bean>
 
 <!--    AutoWiring Using byName -->
-    <bean class="com.springcore.autowire.Employee" name="employee" autowire="byName"/>
+<!--    <bean class="com.springcore.autowire.Employee" name="employee" autowire="byName"/>-->
+
+<!--    AutoWiring Using byType-->
+    <bean class="com.springcore.autowire.Employee" name="employee" autowire="byType"/>
+
 </beans>
