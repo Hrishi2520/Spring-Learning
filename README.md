@@ -20,3 +20,15 @@
 	- Using XML (init-method, destroy-method), AbstractApplicationContext interface(registerShutDownHook).
 	- implementing interfaces i) initializingBean ii)isposableBean
 	- Using Annotations @PostConstruct and @PreDestroy
+
+### [26 jul 2023]
+	* Autowiring in spring
+	- Feature of spring framework in which spring container inject the dependencies automatically.
+
+	Advantages: 
+	- Automatic
+	- less code
+	
+	Disadvantage: 
+	- No control of programmer
+	- no use for primitive and String values
