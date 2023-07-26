@@ -18,6 +18,10 @@
 <!--    <bean class="com.springcore.autowire.Employee" name="employee" autowire="byName"/>-->
 
 <!--    AutoWiring Using byType-->
-    <bean class="com.springcore.autowire.Employee" name="employee" autowire="byType"/>
+<!--    <bean class="com.springcore.autowire.Employee" name="employee" autowire="byType"/>-->
+
+<!--    AutoWiring Using constructor-->
+    <bean class="com.springcore.autowire.Employee" name="employee" autowire="constructor"/>
+
 
 </beans>
