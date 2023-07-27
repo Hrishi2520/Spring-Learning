@@ -15,6 +15,12 @@
         <property name="city" value="Navi Mumbai"/>
     </bean>
 
+    <!--    address bean-->
+    <bean class="com.springcore.autowire.annotation.Address" name="address2">
+        <property name="street" value="MH street"/>
+        <property name="city" value="Navi Mumbai"/>
+    </bean>
+
     <bean class="com.springcore.autowire.annotation.Employee" name="employee"/>
 
 
