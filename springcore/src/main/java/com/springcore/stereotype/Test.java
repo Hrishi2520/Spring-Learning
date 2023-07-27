@@ -11,5 +11,15 @@ public class Test {
         System.out.println(employee);
         System.out.println("---------------------");
         System.out.println(employee.getAddres());
+
+        System.out.println(employee.hashCode());
+        Employee employe2 = context.getBean("employee", Employee.class);
+        System.out.println(employe2.hashCode());
+        System.out.println("---------------------");
+        Teacher teacher1 = context.getBean("teacher", Teacher.class);
+        Teacher teacher2 = context.getBean("teacher", Teacher.class);
+
+        System.out.println(teacher1.getClass().hashCode());
+        System.out.println(teacher2.getClass().hashCode());
     }
 }
