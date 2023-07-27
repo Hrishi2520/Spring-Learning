@@ -38,3 +38,15 @@
 
 	*Autowiring using Annotation on:
 	- setter methos, property, constructore.
+
+### [27 jul 2023]
+	* Qualifire Annotation
+	- @Qualifier annotation to mark a bean as ready for AutoWiring.
+	- @Qualifier is used along with @Autowired annotation to specify the exact bean for auto wiring by Spring container
+
+	* Spring Standalone Collections
+	- creating standalone collection [list, set, map] using util schema. 	
+
+	* StereoType Annotions:
+	- @Component
+
