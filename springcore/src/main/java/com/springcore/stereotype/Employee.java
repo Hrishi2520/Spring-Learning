@@ -3,6 +3,8 @@ package com.springcore.stereotype;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class Employee {
     @Value("${some.key:10}")
@@ -13,6 +15,9 @@ public class Employee {
     private String address;
     @Value("${some.key:true}")
     private  boolean isEmployed;
+
+    @Value("#{addresses}")
+    private List<String> addres;
 
     public int getId() {
         return id;
@@ -46,13 +51,22 @@ public class Employee {
         isEmployed = employed;
     }
 
+    public List<String> getAddres() {
+        return addres;
+    }
+
+    public void setAddres(List<String> addres) {
+        this.addres = addres;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
-                "id= " + id +
-                ", name= '" + name + '\'' +
-                ", address= '" + address + '\'' +
-                ", isEmployed= " + isEmployed +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", isEmployed=" + isEmployed +
+                ", addres=" + addres +
                 '}';
     }
 }
