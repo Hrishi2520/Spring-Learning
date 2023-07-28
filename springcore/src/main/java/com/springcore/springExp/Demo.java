@@ -20,6 +20,9 @@ public class Demo {
     @Value("#{new java.lang.String('Hrishikesh Shedge')}")
     private String name;
 
+    @Value("#{new java.lang.Boolean(true)}")
+    private boolean present;
+
 
     public int getX() {
         return x;
@@ -61,6 +64,14 @@ public class Demo {
         this.name = name;
     }
 
+    public boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(boolean present) {
+        this.present = present;
+    }
+
     @Override
     public String toString() {
         return "Demo{" +
@@ -69,6 +80,7 @@ public class Demo {
                 ", z=" + z +
                 ", e=" + e +
                 ", name='" + name + '\'' +
+                ", present=" + present +
                 '}';
     }
 }
