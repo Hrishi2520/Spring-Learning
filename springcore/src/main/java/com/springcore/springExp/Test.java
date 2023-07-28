@@ -11,9 +11,5 @@ public class Test {
         ApplicationContext context = new ClassPathXmlApplicationContext("springExp.xml");
         Demo demo = context.getBean("demo", Demo.class);
         System.out.println(demo);
-
-        SpelExpressionParser temp = new SpelExpressionParser();
-        Expression expression = temp.parseExpression("22+44");
-        System.out.println(expression.getValue());
     }
 }

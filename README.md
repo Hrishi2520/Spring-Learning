@@ -50,3 +50,12 @@
 	* StereoType Annotions:
 	- @Component
 
+### [28 jul 2023]
+	- Collections with @Value
+
+	* Bean Scope:
+	- singalton, prototype
+
+	* Spring Expression Language: 
+	- It supports Parsing abd Executing with the help of @Value annotation.
+	- invoke static method, variables and creating object using Spring Expression. 
