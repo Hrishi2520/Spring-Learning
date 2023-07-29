@@ -59,3 +59,7 @@
 	* Spring Expression Language: 
 	- It supports Parsing abd Executing with the help of @Value annotation.
 	- invoke static method, variables and creating object using Spring Expression. 
+
+### [29 jul 2023]
+	* Removing Complete XML For Spring Configuration by using:
+	- @Configuration, @ComponentScan, @Bean 
