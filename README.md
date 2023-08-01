@@ -63,3 +63,10 @@
 ### [29 jul 2023]
 	* Removing Complete XML For Spring Configuration by using:
 	- @Configuration, @ComponentScan, @Bean 
+
+### [30 jul 2023]
+	* Spring JDBC
+	- Creating Maven Projet And Adding Spring JDBC Dependencies.
+	
+	Database Operation:
+	- Configuring JDBC Template with XML to Perform Database Operation.
