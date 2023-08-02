@@ -68,6 +68,9 @@
 	* Spring JDBC
 	- Creating Maven Projet And Adding Spring JDBC Dependencies.
 	
-### [1 Aug 2023]
+### [2 Aug 2023]
 	Database Operation:
 	- Configuring JDBC Template with XML to Perform Database Operation.
+
+### [3 Aug 2023]
+	- Inserting data to database using Spring JDBC
