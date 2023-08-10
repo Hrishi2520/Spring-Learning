@@ -1,6 +1,7 @@
 package com.spring.jdbc;
 
 import com.spring.jdbc.dao.StudentDao;
+import com.spring.jdbc.dao.StudentDaoImpl;
 import com.spring.jdbc.entity.Student;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,10 +22,12 @@ public class App
 
         StudentDao studentDao = context.getBean("studentDao", StudentDao.class);
 
-        Student student = new Student(227, "Raj", "Kolkata");
+        Student student = new Student(222, "krishna", "kanpur");
 
-        int result = studentDao.insert(student);
+        int result = studentDao.change(student);
 
         System.out.println("Student Added "+ result);
+
+
     }
 }
