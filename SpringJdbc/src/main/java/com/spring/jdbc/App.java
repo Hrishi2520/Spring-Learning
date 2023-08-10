@@ -24,7 +24,7 @@ public class App
 
         Student student = new Student(235, "Hritik", "dehli");
 
-        int result = studentDao.delete(student);
+        int result = studentDao.delete(22);
 
         System.out.println("Student deleted "+ result);
 
