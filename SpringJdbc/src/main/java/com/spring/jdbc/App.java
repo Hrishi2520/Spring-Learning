@@ -22,11 +22,8 @@ public class App
 
         StudentDao studentDao = context.getBean("studentDao", StudentDao.class);
 
-        Student student = new Student(235, "Hritik", "dehli");
-
-        int result = studentDao.delete(22);
-
-        System.out.println("Student deleted "+ result);
+        Student student = studentDao.getStudent(222);
+        System.out.println(student);
 
 
     }

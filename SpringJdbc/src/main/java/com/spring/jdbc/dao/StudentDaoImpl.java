@@ -2,6 +2,7 @@ package com.spring.jdbc.dao;
 
 import com.spring.jdbc.entity.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 public class StudentDaoImpl implements StudentDao{
 
@@ -30,5 +31,12 @@ public class StudentDaoImpl implements StudentDao{
 
     public void setTemplate(JdbcTemplate template) {
         this.template = template;
+    }
+
+    public Student getStudent(int studentId) {
+        String query = "select * from student where id=?";
+        RowMapper<Student> rowMapper = new RowMapperImpl();
+        Student student = this.template.queryForObject(query, rowMapper, studentId);
+        return student;
     }
 }
