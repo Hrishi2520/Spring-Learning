@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class StudentDaoImpl implements StudentDao{
 
@@ -48,5 +49,19 @@ public class StudentDaoImpl implements StudentDao{
             }
         }, studentId);
         return student;
+    }
+
+    public List<Student> getAllStudents() {
+        String query = "select * from student";
+        List<Student> students = this.template.query(query, new RowMapper<Student>() {
+            public Student mapRow(ResultSet resultSet, int i) throws SQLException {
+                Student student = new Student();
+                student.setId(resultSet.getInt(1));
+                student.setName(resultSet.getString(2));
+                student.setCity(resultSet.getString(3));
+                return student;
+            }
+        });
+        return students;
     }
 }

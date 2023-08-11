@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 /**
  * Hello world!
  *
@@ -22,8 +24,8 @@ public class App
 
         StudentDao studentDao = context.getBean("studentDao", StudentDao.class);
 
-        Student student = studentDao.getStudent(36);
-        System.out.println(student);
+        List<Student> students = studentDao.getAllStudents();
+        students.forEach(System.out::println);
 
 
     }
