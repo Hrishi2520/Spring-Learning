@@ -22,7 +22,7 @@ public class App
 
         StudentDao studentDao = context.getBean("studentDao", StudentDao.class);
 
-        Student student = studentDao.getStudent(222);
+        Student student = studentDao.getStudent(36);
         System.out.println(student);
 
 

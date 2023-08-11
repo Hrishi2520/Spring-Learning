@@ -4,6 +4,9 @@ import com.spring.jdbc.entity.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class StudentDaoImpl implements StudentDao{
 
     private JdbcTemplate template;
@@ -35,8 +38,15 @@ public class StudentDaoImpl implements StudentDao{
 
     public Student getStudent(int studentId) {
         String query = "select * from student where id=?";
-        RowMapper<Student> rowMapper = new RowMapperImpl();
-        Student student = this.template.queryForObject(query, rowMapper, studentId);
+        Student student = this.template.queryForObject(query, new RowMapper<Student>() {
+            public Student mapRow(ResultSet resultSet, int i) throws SQLException {
+                Student student1 = new Student();
+                student1.setId(resultSet.getInt(1));
+                student1.setName(resultSet.getString(2));
+                student1.setCity(resultSet.getString(3));
+                return student1;
+            }
+        }, studentId);
         return student;
     }
 }
