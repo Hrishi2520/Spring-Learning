@@ -1,8 +1,7 @@
 package com.spring.jdbc.config;
 
-import com.spring.jdbc.dao.StudentDao;
-import com.spring.jdbc.dao.StudentDaoImpl;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -10,6 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
+@ComponentScan(basePackages = "com.spring.jdbc.dao")
 public class JdbcConfig {
     @Bean("ds")
     public DataSource getDataSource() {
@@ -26,13 +26,6 @@ public class JdbcConfig {
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getDataSource());
         return template;
-    }
-
-    @Bean("studentDao")
-    public StudentDao getStudent() {
-        StudentDaoImpl dao = new StudentDaoImpl();
-        dao.setTemplate(getTemplate());
-        return dao;
     }
 
 

@@ -5,9 +5,13 @@ import com.spring.jdbc.entity.Student;
 import java.util.List;
 
 public interface StudentDao {
-    public int insert(Student student);
-    public int change(Student student);
-    public int delete(int id);
-    public Student getStudent(int studentId);
-    public List<Student> getAllStudents();
+    int insert(Student student);
+
+    int change(Student student);
+
+    int delete(int id);
+
+    Student getStudent(int studentId);
+
+    List<Student> getAllStudents();
 }
