@@ -73,4 +73,15 @@
 	- Configuring JDBC Template with XML to Perform Database Operation.
 
 ### [3 Aug 2023]
-	- Inserting data to database using Spring JDBC
+	- Inserting data to database using Spring JDBC.
+
+### [10 Aug 2023]
+	- Insert Operations to database using Spring JDBC.
+
+### [11 Aug 2023]
+	- Update, delete Operations to database using Spring JDBC.
+
+### [12 Aug 2023]
+	- Select Operation On Database Using Spring JDBC.
+	- Spring JDBC Configuration without XML.
+	- Autowiring in Spring JDBC.
