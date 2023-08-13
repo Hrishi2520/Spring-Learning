@@ -64,8 +64,8 @@
 	* Removing Complete XML For Spring Configuration by using:
 	- @Configuration, @ComponentScan, @Bean 
 
+# Spring JDBC 
 ### [30 jul 2023]
-	* Spring JDBC
 	- Creating Maven Projet And Adding Spring JDBC Dependencies.
 	
 ### [2 Aug 2023]
@@ -85,3 +85,9 @@
 	- Select Operation On Database Using Spring JDBC.
 	- Spring JDBC Configuration without XML.
 	- Autowiring in Spring JDBC.
+
+# ORM
+### [13 Aug 2023]
+	- Spring ORM Complete Setup:
+	- Adding depedencies.
+	- Complete Configuration of Spring ORM
