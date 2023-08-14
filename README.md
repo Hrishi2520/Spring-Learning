@@ -91,3 +91,9 @@
 	- Spring ORM Complete Setup:
 	- Adding depedencies.
 	- Complete Configuration of Spring ORM
+
+### [14 Aug 2024]
+	- complete CRUD operation using Spring ORM.
+	
+### [15 Aug 2024]
+	- Consol Application with Sprin ORM.
