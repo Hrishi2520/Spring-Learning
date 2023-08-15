@@ -7,10 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
+import java.util.List;
 
 public class Main {
-    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
         StudentDao studentDao = context.getBean("studentDao", StudentDao.class);
@@ -31,25 +30,62 @@ public class Main {
 
                 switch (input) {
                     case 1:
+                        //add a new Students
+                        //taking inputs from users
+                        System.out.println("Enter user id: ");
+                        int uid = Integer.parseInt(br.readLine());
 
-                        studentDao.insert(Main.getStudent());
-                        System.out.println("Adding New Student...\n");
+                        System.out.println("Enter user Name: ");
+                        String  uName = br.readLine();
+
+                        System.out.println("Enter user City: ");
+                        String uCity = br.readLine();
+
+                        //creating student object and setting values
+                        Student student = new Student(uid, uName, uCity);
+
+                        //saving student object to database by calling insert of student dao
+                        int r = studentDao.insert(student);
+                        System.out.println(r + " Student Added");
+                        System.out.println("********************\n");
                         break;
                     case 2:
-                        studentDao.getAllStudents();
-                        System.out.println("Getting Student Details...\n");
+                        List<Student> students = studentDao.getAllStudents();
+                        students.forEach(System.out::println);
+                        System.out.println("********************\n");
                         break;
                     case 3:
-                        System.out.println("Insert Student ID to Get Student Details:");
-                        studentDao.getStudent(br.read());
+                        //get single student data
+                        System.out.println("Enter User id: ");
+                        int userId = Integer.parseInt(br.readLine());
+                        Student student1 = studentDao.getStudent(userId);
+                        System.out.println("Id: "+ student1.getStudentId());
+                        System.out.println("Name: "+student1.getStudentName());
+                        System.out.println("City: "+ student1.getStudentCity());
+                        System.out.println("-----------------------------------");
                         break;
                     case 4:
-                        studentDao.deleteStudents(Integer.parseInt(br.readLine()));
-                        System.out.println("Delete Student...\n");
+                        System.out.println("Enter user id: ");
+                        int id = Integer.parseInt(br.readLine());
+                        studentDao.deleteStudents(id);
+                        System.out.println("Student deleted...\n");
                         break;
                     case 5:
-                        studentDao.updateStudent(Main.getStudent());
-                        System.out.println("Updating Student...\n");
+                        //taking inputs from users
+                        System.out.println("Enter user id: ");
+                        int userid = Integer.parseInt(br.readLine());
+
+                        System.out.println("Enter user Name: ");
+                        String  userName = br.readLine();
+
+                        System.out.println("Enter user City: ");
+                        String userCity = br.readLine();
+
+                        //creating student object and setting values
+                        Student student2 = new Student(userid, userName, userCity);
+                        //Updating student object to database by calling insert of student dao
+                        studentDao.updateStudent(student2);
+                        System.out.println("Updating Student data...\n");
                         break;
                     case 6:
                         System.out.println("Exiting...");
@@ -63,20 +99,4 @@ public class Main {
         }
 
     }
-
-    public static Student getStudent() {
-        System.out.println("Enter the ID for Student");
-        int id = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Enter the Name for Student");
-        String name = sc.nextLine();
-
-        System.out.println("Enter the City for Student");
-        String studentCity = sc.nextLine();
-
-        Student student = new Student(id, name, studentCity);
-        return student;
-    }
-
-
 }
