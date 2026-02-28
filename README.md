@@ -98,3 +98,6 @@
 ### [15 Aug 2024]
 	- Consol Application with Sprin ORM.
 	- updated CRUD operations
+
+### [28 Feb 2026]
+	- Journal CRUD
