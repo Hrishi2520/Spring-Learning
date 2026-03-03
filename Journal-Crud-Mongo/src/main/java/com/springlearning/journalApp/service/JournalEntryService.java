@@ -37,10 +37,11 @@ public class JournalEntryService {
     public JournalEntry update(ObjectId id, JournalEntry newEntry) {
         JournalEntry entry = journalEntryRepo.findById(id).orElse(null);
         if (entry != null) {
-            entry.setTitle(newEntry.getTitle() != null && newEntry.getTitle().isEmpty() ? newEntry.getTitle() : entry.getTitle());
-            entry.setContent(newEntry.getContent() != null && newEntry.getContent().isEmpty() ? newEntry.getContent() : entry.getContent());
+            entry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().isEmpty() ? newEntry.getTitle() : entry.getTitle());
+            entry.setContent(newEntry.getContent() != null && !newEntry.getContent().isEmpty() ? newEntry.getContent() : entry.getContent());
             entry.setDate(LocalDateTime.now());
+            journalEntryRepo.save(entry);
         }
-        return journalEntryRepo.save(entry);
+        return entry;
     }
 }
