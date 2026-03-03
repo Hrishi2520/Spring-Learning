@@ -6,7 +6,9 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JournalEntryService {
@@ -14,16 +16,17 @@ public class JournalEntryService {
     @Autowired
     private JournalEntryRepo journalEntryRepo;
 
-    public void saveEntry(JournalEntry entry) {
-        journalEntryRepo.save(entry);
+    public JournalEntry saveEntry(JournalEntry entry) {
+        entry.setDate(LocalDateTime.now());
+        return journalEntryRepo.save(entry);
     }
 
     public List<JournalEntry> getAll() {
         return journalEntryRepo.findAll();
     }
 
-    public JournalEntry getById(ObjectId id) {
-        return journalEntryRepo.findById(id).orElse(null);
+    public Optional<JournalEntry> getById(ObjectId id) {
+        return journalEntryRepo.findById(id);
     }
 
     public boolean deleteById(ObjectId id) {
@@ -31,13 +34,13 @@ public class JournalEntryService {
         return true;
     }
 
-    public JournalEntry update(ObjectId id, JournalEntry entry) {
-        JournalEntry entry1 = journalEntryRepo.findById(id).get();
-        entry1.setId(entry.getId());
-        entry1.setTitle(entry.getTitle());
-        entry1.setContent(entry.getContent());
-        entry1.setDate(entry.getDate());
-        return journalEntryRepo.save(entry1);
-
+    public JournalEntry update(ObjectId id, JournalEntry newEntry) {
+        JournalEntry entry = journalEntryRepo.findById(id).orElse(null);
+        if (entry != null) {
+            entry.setTitle(newEntry.getTitle() != null && newEntry.getTitle().isEmpty() ? newEntry.getTitle() : entry.getTitle());
+            entry.setContent(newEntry.getContent() != null && newEntry.getContent().isEmpty() ? newEntry.getContent() : entry.getContent());
+            entry.setDate(LocalDateTime.now());
+        }
+        return journalEntryRepo.save(entry);
     }
 }
