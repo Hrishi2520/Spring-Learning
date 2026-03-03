@@ -101,3 +101,6 @@
 
 ### [28 Feb 2026]
 	- Journal CRUD
+
+### [03-03-2026]
+	- Journal CRUD + MongoDB
