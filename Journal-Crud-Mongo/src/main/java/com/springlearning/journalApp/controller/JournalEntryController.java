@@ -2,6 +2,7 @@ package com.springlearning.journalApp.controller;
 
 import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.service.JournalEntryService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,17 +26,17 @@ public class JournalEntryController {
     }
 
     @GetMapping("/id/{id}")
-    public JournalEntry getJournalEntryById(@PathVariable String id) {
+    public JournalEntry getJournalEntryById(@PathVariable ObjectId id) {
         return service.getById(id);
     }
 
     @DeleteMapping("/id/{id}")
-    public boolean deleteJournalEntryById(@PathVariable String id) {
+    public boolean deleteJournalEntryById(@PathVariable ObjectId id) {
         return service.deleteById(id);
     }
 
     @PutMapping("/id/{id}")
-    public JournalEntry updateJournalEntryById(@PathVariable String id, @RequestBody JournalEntry entry) {
+    public JournalEntry updateJournalEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry entry) {
         return service.update(id, entry);
     }
 }

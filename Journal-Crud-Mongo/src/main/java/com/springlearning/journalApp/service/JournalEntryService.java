@@ -2,6 +2,7 @@ package com.springlearning.journalApp.service;
 
 import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.repository.JournalEntryRepo;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +22,16 @@ public class JournalEntryService {
         return journalEntryRepo.findAll();
     }
 
-    public JournalEntry getById(String id) {
+    public JournalEntry getById(ObjectId id) {
         return journalEntryRepo.findById(id).orElse(null);
     }
 
-    public boolean deleteById(String id) {
+    public boolean deleteById(ObjectId id) {
         journalEntryRepo.deleteById(id);
         return true;
     }
 
-    public JournalEntry update(String id, JournalEntry entry) {
+    public JournalEntry update(ObjectId id, JournalEntry entry) {
         JournalEntry entry1 = journalEntryRepo.findById(id).get();
         entry1.setId(entry.getId());
         entry1.setTitle(entry.getTitle());
