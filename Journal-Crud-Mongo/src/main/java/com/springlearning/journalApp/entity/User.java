@@ -2,15 +2,12 @@ package com.springlearning.journalApp.entity;
 
 import lombok.Data;
 import lombok.NonNull;
-import org.apache.catalina.LifecycleState;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexOptions;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class User {
 
     @Indexed(unique = true)
     @NonNull
-    private String username;
+    private String userName;
 
     @NonNull
     private String password;

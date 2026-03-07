@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/journal")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -30,10 +30,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User entry) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
-            userService.saveEntry(entry);
-            return new ResponseEntity<>(entry, HttpStatus.CREATED);
+            userService.saveEntry(user);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -50,5 +50,16 @@ public class UserController {
     public ResponseEntity<?> deleteUserById(@PathVariable ObjectId id) {
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        User byUserName = userService.findByUserName(user.getUserName());
+        if (byUserName != null) {
+            byUserName.setPassword(user.getPassword());
+            userService.saveEntry(byUserName);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 }
