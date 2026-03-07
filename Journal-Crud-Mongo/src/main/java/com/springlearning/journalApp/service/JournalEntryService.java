@@ -23,7 +23,6 @@ public class JournalEntryService {
 
     public void saveEntry(JournalEntry entry, String userName) {
         User user = userRepo.findByUserName(userName);
-        System.out.println(user);
         entry.setDate(LocalDateTime.now());
         JournalEntry saved = journalEntryRepo.save(entry);
         user.getEntries().add(saved);
@@ -38,9 +37,11 @@ public class JournalEntryService {
         return journalEntryRepo.findById(id);
     }
 
-    public boolean deleteById(ObjectId id) {
+    public void deleteById(ObjectId id, String userName) {
+        User user = userRepo.findByUserName(userName);
+        user.getEntries().removeIf(x -> x.getId().equals(id));
+        userRepo.save(user);
         journalEntryRepo.deleteById(id);
-        return true;
     }
 
     public JournalEntry update(ObjectId id, JournalEntry newEntry) {
