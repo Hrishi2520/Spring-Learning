@@ -52,10 +52,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
-        User byUserName = userService.findByUserName(user.getUserName());
+    @PutMapping("/{username}")
+    public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String userName) {
+        User byUserName = userService.findByUserName(userName);
         if (byUserName != null) {
+            byUserName.setUserName(user.getUserName());
             byUserName.setPassword(user.getPassword());
             userService.saveEntry(byUserName);
         }
