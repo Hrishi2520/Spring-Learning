@@ -46,6 +46,14 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/name/{userName}")
+    public ResponseEntity<User> getUserById(@PathVariable String userName) {
+        User user = userService.findByUserName(userName);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable ObjectId id) {
         userService.deleteById(id);

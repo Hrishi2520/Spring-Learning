@@ -1,7 +1,9 @@
 package com.springlearning.journalApp.service;
 
 import com.springlearning.journalApp.entity.JournalEntry;
+import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.repository.JournalEntryRepo;
+import com.springlearning.journalApp.repository.UserRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,16 @@ public class JournalEntryService {
     @Autowired
     private JournalEntryRepo journalEntryRepo;
 
-    public JournalEntry saveEntry(JournalEntry entry) {
+    @Autowired
+    private UserRepo userRepo;
+
+    public void saveEntry(JournalEntry entry, String userName) {
+        User user = userRepo.findByUserName(userName);
+        System.out.println(user);
         entry.setDate(LocalDateTime.now());
-        return journalEntryRepo.save(entry);
+        JournalEntry saved = journalEntryRepo.save(entry);
+        user.getEntries().add(saved);
+        userRepo.save(user);
     }
 
     public List<JournalEntry> getAll() {

@@ -1,7 +1,9 @@
 package com.springlearning.journalApp.controller;
 
 import com.springlearning.journalApp.entity.JournalEntry;
+import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.JournalEntryService;
+import com.springlearning.journalApp.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,20 +20,23 @@ public class JournalEntryController {
     @Autowired
     private JournalEntryService service;
 
-    @GetMapping
-    public ResponseEntity<List<JournalEntry>> getAll() {
+    @Autowired
+    private UserService userService;
 
-        List<JournalEntry> all = service.getAll();
+    @GetMapping("/{userName}")
+    public ResponseEntity<List<JournalEntry>> getAll(@PathVariable String userName) {
+        User user = userService.findByUserName(userName);
+        List<JournalEntry> all = user.getEntries();
         if (all != null && !all.isEmpty()) {
             return new ResponseEntity<>(all, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<JournalEntry> createJournal(@RequestBody JournalEntry entry) {
+    @PostMapping("/{userName}")
+    public ResponseEntity<?> createJournal(@RequestBody JournalEntry entry, @PathVariable String userName) {
         try {
-            service.saveEntry(entry);
+            service.saveEntry(entry, userName);
             return new ResponseEntity<>(entry, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
