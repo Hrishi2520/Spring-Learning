@@ -56,13 +56,17 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/id/{id}")
-    public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry entry) {
-        JournalEntry update = service.update(id, entry);
-        if (update != null) {
-            return new ResponseEntity<>(update, HttpStatus.OK);
+    @PutMapping("/id/{userName}/{id}")
+    public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId id
+            , @RequestBody JournalEntry entry, @PathVariable String userName) {
+
+        JournalEntry old = service.findById(id).orElse(null);
+        if (old !=null) {
+            old.setTitle(entry.getTitle() !=null && !entry.getTitle().equals("") ? entry.getTitle() : old.getTitle());
+            old.setContent(entry.getContent() != null && !entry.getContent().equals("") ? entry.getContent() : old.getContent());
+            service.saveEntry(old);
+            return new ResponseEntity<>(old, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 }

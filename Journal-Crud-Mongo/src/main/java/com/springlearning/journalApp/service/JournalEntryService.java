@@ -29,6 +29,10 @@ public class JournalEntryService {
         userRepo.save(user);
     }
 
+    public void saveEntry(JournalEntry entry) {
+        journalEntryRepo.save(entry);
+    }
+
     public List<JournalEntry> getAll() {
         return journalEntryRepo.findAll();
     }
@@ -44,14 +48,19 @@ public class JournalEntryService {
         journalEntryRepo.deleteById(id);
     }
 
-    public JournalEntry update(ObjectId id, JournalEntry newEntry) {
+    public JournalEntry update(ObjectId id, JournalEntry newEntry, String userName) {
+        User user = userRepo.findByUserName(userName);
         JournalEntry entry = journalEntryRepo.findById(id).orElse(null);
         if (entry != null) {
-            entry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().isEmpty() ? newEntry.getTitle() : entry.getTitle());
+            entry.setTitle(!newEntry.getTitle().isEmpty() ? newEntry.getTitle() : entry.getTitle());
             entry.setContent(newEntry.getContent() != null && !newEntry.getContent().isEmpty() ? newEntry.getContent() : entry.getContent());
             entry.setDate(LocalDateTime.now());
             journalEntryRepo.save(entry);
         }
         return entry;
+    }
+
+    public Optional<JournalEntry> findById(ObjectId id) {
+        return journalEntryRepo.findById(id);
     }
 }
