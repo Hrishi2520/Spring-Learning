@@ -19,15 +19,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<User>> getAll() {
-
-        List<User> all = userService.getAll();
-        if (all != null && !all.isEmpty()) {
-            return new ResponseEntity<>(all, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<User>> getAll() {
+//
+//        List<User> all = userService.getAll();
+//        if (all != null && !all.isEmpty()) {
+//            return new ResponseEntity<>(all, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
