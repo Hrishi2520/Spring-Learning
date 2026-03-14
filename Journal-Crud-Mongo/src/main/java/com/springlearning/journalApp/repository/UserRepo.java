@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepo extends MongoRepository<User, ObjectId> {
     @Query("SELECT u FROM User u Where u.userName=:name")
     User findByUserName(@Param("name") String name);
+
+    void deleteByUserName(String userName);
 }

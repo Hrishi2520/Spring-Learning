@@ -22,7 +22,8 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void saveEntry(User user) {
         userRepo.save(user);
@@ -48,5 +49,9 @@ public class UserService {
 
     public User findByUserName(String userName) {
         return userRepo.findByUserName(userName);
+    }
+
+    public void deleteByUserName(String userName) {
+        userRepo.deleteByUserName(userName);
     }
 }
