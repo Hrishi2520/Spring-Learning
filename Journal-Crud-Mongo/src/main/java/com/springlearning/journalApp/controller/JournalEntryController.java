@@ -66,8 +66,10 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/id/{userName}/{id}")
-    public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId id, @PathVariable String userName) {
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
         service.deleteById(id, userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

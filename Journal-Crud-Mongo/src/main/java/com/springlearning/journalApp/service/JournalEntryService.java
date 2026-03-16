@@ -20,16 +20,16 @@ public class JournalEntryService {
     private JournalEntryRepo journalEntryRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
     @Transactional
     public void saveEntry(JournalEntry entry, String userName) {
         try {
-            User user = userRepo.findByUserName(userName);
+            User user = userService.findByUserName(userName);
             entry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepo.save(entry);
             user.getEntries().add(saved);
-            userRepo.save(user);
+            userService.saveEntry(user);
         } catch (Exception e) {
             System.out.println(e);
             throw new RuntimeException("Error Occurred");
@@ -48,15 +48,23 @@ public class JournalEntryService {
         return journalEntryRepo.findById(id);
     }
 
+    @Transactional
     public void deleteById(ObjectId id, String userName) {
-        User user = userRepo.findByUserName(userName);
-        user.getEntries().removeIf(x -> x.getId().equals(id));
-        userRepo.save(user);
-        journalEntryRepo.deleteById(id);
+        try {
+            User user = userService.findByUserName(userName);
+            boolean removed = user.getEntries().removeIf(x -> x.getId().equals(id));
+            if (removed) {
+                userService.saveEntry(user);
+                journalEntryRepo.deleteById(id);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("An Error Occurred while removing the entry..");
+        }
     }
 
     public JournalEntry update(ObjectId id, JournalEntry newEntry, String userName) {
-        User user = userRepo.findByUserName(userName);
+        User user = userService.findByUserName(userName);
         JournalEntry entry = journalEntryRepo.findById(id).orElse(null);
         if (entry != null) {
             entry.setTitle(!newEntry.getTitle().isEmpty() ? newEntry.getTitle() : entry.getTitle());
@@ -69,9 +77,5 @@ public class JournalEntryService {
 
     public Optional<JournalEntry> findById(ObjectId id) {
         return journalEntryRepo.findById(id);
-    }
-
-    public List<JournalEntry> findByUserName(String userName) {
-
     }
 }
