@@ -17,6 +17,10 @@ public class PublicController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/health-check")
+    public String healthCheck() {
+        return "ok";
+    }
     @PostMapping("/create-user")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {

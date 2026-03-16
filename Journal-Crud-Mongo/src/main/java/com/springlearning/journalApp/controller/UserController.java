@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/name/{userName}")
-    public ResponseEntity<User> getUserById(@PathVariable String userName) {
+    public ResponseEntity<User> getUserByName(@PathVariable String userName) {
         User user = userService.findByUserName(userName);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
@@ -52,7 +52,7 @@ public class UserController {
         if (byUserName != null) {
             byUserName.setUserName(user.getUserName());
             byUserName.setPassword(user.getPassword());
-            userService.saveNewUser(byUserName);
+            userService.saveEntry(byUserName);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 

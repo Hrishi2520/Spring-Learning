@@ -70,4 +70,8 @@ public class JournalEntryService {
     public Optional<JournalEntry> findById(ObjectId id) {
         return journalEntryRepo.findById(id);
     }
+
+    public List<JournalEntry> findByUserName(String userName) {
+
+    }
 }
