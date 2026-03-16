@@ -70,20 +70,31 @@ public class JournalEntryController {
     public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        service.deleteById(id, userName);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        boolean removed = service.deleteById(id, userName);
+        if (removed) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PutMapping("/id/{userName}/{id}")
+    @PutMapping("/id/{id}")
     public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId id
-            , @RequestBody JournalEntry entry, @PathVariable String userName) {
+            , @RequestBody JournalEntry newEntry) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        User user = userService.findByUserName(userName);
+        List<JournalEntry> collect = user.getEntries().stream().filter(x -> x.getId().equals(id)).toList();
 
-        JournalEntry old = service.findById(id).orElse(null);
-        if (old !=null) {
-            old.setTitle(entry.getTitle() !=null && !entry.getTitle().equals("") ? entry.getTitle() : old.getTitle());
-            old.setContent(entry.getContent() != null && !entry.getContent().equals("") ? entry.getContent() : old.getContent());
-            service.saveEntry(old);
-            return new ResponseEntity<>(old, HttpStatus.OK);
+        if (!collect.isEmpty()){
+            Optional<JournalEntry> entry = service.getById(id);
+            if (entry.isPresent()) {
+                JournalEntry old = entry.get();
+                old.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : old.getTitle());
+                old.setContent(newEntry.getContent() != null && !newEntry.getContent().equals("") ? newEntry.getContent() : old.getContent());
+                service.saveEntry(old);
+                return new ResponseEntity<>(old, HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
