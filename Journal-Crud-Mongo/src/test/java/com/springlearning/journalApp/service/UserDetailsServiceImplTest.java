@@ -4,10 +4,9 @@ import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.entity.UserPrinciple;
 import com.springlearning.journalApp.repository.UserRepo;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,15 +19,18 @@ import java.util.ArrayList;
 
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 public class UserDetailsServiceImplTest{
 
-    @Autowired
+    @InjectMocks
     private UserDetailsServiceImpl detailsService;
 
-    @MockitoBean
+    @Mock
     private UserRepo userRepo;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
     @Test
     public void loadUserByUsernameTest() {
         when(userRepo.findByUserName(ArgumentMatchers.anyString()))
