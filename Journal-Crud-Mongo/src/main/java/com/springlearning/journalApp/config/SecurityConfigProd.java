@@ -17,8 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Profile("dev")
-public class SecurityConfig {
+@Profile("prod")
+public class SecurityConfigProd {
 
     @Autowired
     private UserDetailsServiceImpl detailsService;
@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**", "/journal/**").authenticated()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .build();
