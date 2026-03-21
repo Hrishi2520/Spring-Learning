@@ -4,7 +4,10 @@ import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.repository.JournalEntryRepo;
 import com.springlearning.journalApp.repository.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -25,14 +29,23 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+
     public void saveEntry(User user) {
         userRepo.save(user);
     }
 
     public void saveNewUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("USER"));
-        userRepo.save(user);
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Arrays.asList("USER"));
+            userRepo.save(user);
+            logger.info("user saved...");
+        } catch (Exception e) {
+            logger.error("error occurred for {}",user.getUserName(), e);
+            logger.error("User Entry Save Failed.");
+        }
     }
 
     public void saveAdmin(User user) {

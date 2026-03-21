@@ -4,7 +4,10 @@ import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.repository.JournalEntryRepo;
 import com.springlearning.journalApp.repository.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class JournalEntryService {
 
     @Autowired
@@ -21,6 +25,8 @@ public class JournalEntryService {
 
     @Autowired
     private UserService userService;
+
+    private final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
     @Transactional
     public void saveEntry(JournalEntry entry, String userName) {
@@ -30,8 +36,9 @@ public class JournalEntryService {
             JournalEntry saved = journalEntryRepo.save(entry);
             user.getEntries().add(saved);
             userService.saveEntry(user);
+            logger.info("saved...");
         } catch (Exception e) {
-            System.out.println(e);
+                logger.error("Journal Entry Save Failed.");
             throw new RuntimeException("Error Occurred");
         }
     }
@@ -59,7 +66,7 @@ public class JournalEntryService {
                 journalEntryRepo.deleteById(id);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            logger.info("error ", e);
             throw new RuntimeException("An Error Occurred while removing the entry..");
         }
         return removed;
