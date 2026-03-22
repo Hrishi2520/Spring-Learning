@@ -19,6 +19,7 @@ public class WeatherResponse {
         @JsonProperty("weather_descriptions")
         private List<String> weatherDescriptions;
 
+        @JsonProperty("feelslike")
         private int feelsLike;
     }
 
