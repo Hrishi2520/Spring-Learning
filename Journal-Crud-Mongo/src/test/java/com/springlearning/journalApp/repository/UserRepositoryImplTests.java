@@ -1,5 +1,6 @@
 package com.springlearning.journalApp.repository;
 
+import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +21,7 @@ public class UserRepositoryImplTests {
     private UserRepositoryImpl userRepository;
 
     public void testSaveNewUser() {
-        userRepository.findUserForSA();
+//        userRepository.findUserForSA();
+        Assertions.assertNotNull(userRepository.findUserForSA());
     }
 }
