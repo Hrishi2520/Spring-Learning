@@ -13,9 +13,9 @@ public class UserRepositoryImpl {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<User> getUsersForSentimentAnalysis() {
+    public List<User> findUserForSA() {
         Query query = new Query();
-        query.addCriteria(Criteria.where("namw").is("ram"));
+        query.addCriteria(Criteria.where("userName").is("ram"));
         List<User> users = mongoTemplate.find(query, User.class);
         return users;
     }

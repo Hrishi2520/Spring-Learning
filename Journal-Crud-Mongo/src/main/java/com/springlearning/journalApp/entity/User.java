@@ -13,6 +13,7 @@ import java.util.List;
 @Document(collection = "Users")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class User {
     @Id
