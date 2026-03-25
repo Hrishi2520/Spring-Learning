@@ -16,6 +16,7 @@ public class UserRepositoryImpl {
     public List<User> findUserForSA() {
         Query query = new Query();
         query.addCriteria(Criteria.where("userName").is("ram"));
+        query.addCriteria(Criteria.where("age").gte(20));
         List<User> users = mongoTemplate.find(query, User.class);
         return users;
     }
