@@ -1,34 +1,18 @@
 package com.springlearning.journalApp.repository;
 
-import com.springlearning.journalApp.entity.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
-import java.util.List;
 
 @SpringBootTest
 public class UserRepositoryImplTests {
 
     @Autowired
-    private MongoTemplate mongoTemplate;
-
-    public List<User> getUsersForSentimentAnalysis() {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("email").regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$"));
-        query.addCriteria(Criteria.where("sentimentAnalysis").is(true);
-        List<User> users = mongoTemplate.find(query, User.class);
-        return users;
-    }
-
-    @Autowired
     private UserRepositoryImpl userRepository;
 
+    @Test
     public void testSaveNewUser() {
-//        userRepository.findUserForSA();
-        Assertions.assertNotNull(userRepository.findUserForSA());
+        Assertions.assertNotNull(userRepository.getUsersForSentimentAnalysis());
     }
 }

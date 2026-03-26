@@ -13,17 +13,10 @@ public class UserRepositoryImpl {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<User> findUserForSA() {
+    public List<User> getUsersForSentimentAnalysis() {
         Query query = new Query();
-//        query.addCriteria(Criteria.where("email").exists(true));
-        Criteria criteria = new Criteria();
-        query.addCriteria(criteria.orOperator(
-                Criteria.where("email").exists(true),
-                Criteria.where("email").ne(null).ne(""),
-                Criteria.where("sentimentAnalysis").is(true),
-                Criteria.where("roles").in("USER", "ADMIN")
-                )
-        );
+        query.addCriteria(Criteria.where("email").regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$"));
+        query.addCriteria(Criteria.where("sentimentAnalysis").is(true));
         List<User> users = mongoTemplate.find(query, User.class);
         return users;
     }
