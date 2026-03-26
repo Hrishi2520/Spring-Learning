@@ -13,6 +13,6 @@ public class UserRepositoryImplTests {
 
     @Test
     public void testSaveNewUser() {
-        Assertions.assertNotNull(userRepository.getUsersForSentimentAnalysis());
+        Assertions.assertNotNull(userRepository.getUsersForSA());
     }
 }
