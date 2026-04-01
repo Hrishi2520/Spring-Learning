@@ -6,6 +6,7 @@ import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.enums.Sentiment;
 import com.springlearning.journalApp.repository.UserRepositoryImpl;
 import com.springlearning.journalApp.service.EmailService;
+import com.springlearning.journalApp.service.SentimentAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class UserScheduler {
     @Autowired
     private AppCache appCache;
 
-    @Scheduled(cron = "0 9 * * SUN")
+    @Scheduled(cron = "0 0 9 * * SUN")
 //    @Scheduled(cron = "0 * * ? * *")
     public void fetchUsersAndSendSAMail() {
         List<User> users = userRepository.getUsersForSA();
