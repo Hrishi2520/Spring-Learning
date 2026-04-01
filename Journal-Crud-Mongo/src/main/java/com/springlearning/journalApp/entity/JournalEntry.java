@@ -1,5 +1,6 @@
 package com.springlearning.journalApp.entity;
 
+import com.springlearning.journalApp.enums.Sentiment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -8,7 +9,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Document(collection = "journal_entries")
 @Data
@@ -22,4 +22,6 @@ public class JournalEntry {
     private String content;
 
     private LocalDateTime date;
+
+    private Sentiment sentiment;
 }

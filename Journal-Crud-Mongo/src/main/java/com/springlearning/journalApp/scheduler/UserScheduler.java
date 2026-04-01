@@ -3,16 +3,18 @@ package com.springlearning.journalApp.scheduler;
 import com.springlearning.journalApp.cache.AppCache;
 import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.entity.User;
+import com.springlearning.journalApp.enums.Sentiment;
 import com.springlearning.journalApp.repository.UserRepositoryImpl;
 import com.springlearning.journalApp.service.EmailService;
-import com.springlearning.journalApp.service.SentimentAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,14 +38,28 @@ public class UserScheduler {
         List<User> users = userRepository.getUsersForSA();
         for(User user : users) {
             List<JournalEntry> journalEntries = user.getEntries();
-            List<String> contentList = journalEntries.stream().filter(x -> x.getDate()
+            List<Sentiment> sentiments = journalEntries.stream().filter(x -> x.getDate()
                             .isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS)))
-                    .map(x -> x.getContent()).collect(Collectors.toList());
-            String s = String.join(" ", contentList);
-            String sentiment = sentimentAnalysisService.getSentiment(s);
+                    .map(x -> x.getSentiment()).collect(Collectors.toList());
+            Map<Sentiment, Integer> sentimentCounts = new HashMap<>();
+            for(Sentiment sentiment : sentiments) {
+                if (sentiment != null) {
+                    sentimentCounts.put(sentiment, sentimentCounts.getOrDefault(sentiment, 0)+1);
+                }
+            }
 
-            emailService.sendEmail(user.getEmail(), "Sentiment for last 7 days", sentiment);
+            Sentiment mostFrequentSentiment = null;
+            int maxCount = 0;
+            for(Map.Entry<Sentiment, Integer> entry : sentimentCounts.entrySet()) {
+                if (entry.getValue() > maxCount) {
+                    maxCount = entry.getValue();
+                    mostFrequentSentiment = entry.getKey();
+                }
+            }
 
+            if (mostFrequentSentiment != null) {
+                emailService.sendEmail(user.getEmail(), "Sentiment For Last 7 Days ", mostFrequentSentiment.toString());
+            }
         }
     }
 
