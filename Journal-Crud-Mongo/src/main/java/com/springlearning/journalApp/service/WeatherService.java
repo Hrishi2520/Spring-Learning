@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.TimeUnit;
-
 @Service
 public class WeatherService {
 
@@ -23,9 +21,6 @@ public class WeatherService {
 
     @Value("${weather.api.key}")
     private String API_KEY;
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private RedisService redisService;
