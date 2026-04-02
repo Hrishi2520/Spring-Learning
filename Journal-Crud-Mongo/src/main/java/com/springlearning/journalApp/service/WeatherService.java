@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class WeatherService {
 
@@ -21,14 +23,29 @@ public class WeatherService {
 
     @Value("${weather.api.key}")
     private String API_KEY;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private RedisService redisService;
 //
 //    private static final String API = "http://api.weatherstack.com/current?access_key=API_KEY&query=CITY";
 
 
     public WeatherResponse getWeather(String city) {
-        String api = appCache.appCache.get(AppCache.keys.WEATHER_API.toString()).replace(PlaceHolders.CITY, "Mumbai").replace(PlaceHolders.API_KEY, API_KEY);
-        ResponseEntity<WeatherResponse> response = restTemplate.exchange(api, HttpMethod.GET, null, WeatherResponse.class);
-        WeatherResponse body = response.getBody();
-        return body;
+        WeatherResponse weatherResponse = redisService.get("weather_of_" + city, WeatherResponse.class);
+        if (weatherResponse !=null) {
+            return weatherResponse;
+        } else {
+            String api = appCache.appCache.get(AppCache.keys.WEATHER_API.toString()).replace(PlaceHolders.CITY, "Mumbai").replace(PlaceHolders.API_KEY, API_KEY);
+            ResponseEntity<WeatherResponse> response = restTemplate.exchange(api, HttpMethod.GET, null, WeatherResponse.class);
+            WeatherResponse body = response.getBody();
+            if (body !=null){
+                redisService.set("weather_of_" + city, body, 300L);
+            }
+            return body;
+        }
+
     }
 }
