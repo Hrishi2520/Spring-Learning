@@ -30,7 +30,9 @@ public class RedisService {
 
     public void set(String key, Object o, Long ttl){
         try {
-            redisTemplate.opsForValue().set(key, o, ttl, TimeUnit.SECONDS);
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonValue = objectMapper.writeValueAsString(o);
+            redisTemplate.opsForValue().set(key, jsonValue, ttl, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error("Exception "+ e);
         }
