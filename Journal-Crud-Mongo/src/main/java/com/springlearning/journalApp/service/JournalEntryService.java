@@ -3,7 +3,6 @@ package com.springlearning.journalApp.service;
 import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.repository.JournalEntryRepo;
-import com.springlearning.journalApp.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;

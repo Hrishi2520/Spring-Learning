@@ -2,7 +2,6 @@ package com.springlearning.journalApp.controller;
 
 import com.springlearning.journalApp.dto.WeatherResponse;
 import com.springlearning.journalApp.entity.User;
-import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserService;
 import com.springlearning.journalApp.service.WeatherService;
 import org.bson.types.ObjectId;
@@ -13,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
