@@ -1,2 +1,8 @@
-package com.springlearning.journalApp.utils;public class JWTUtils {
+package com.springlearning.journalApp.utils;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class JWTUtils {
+
 }
