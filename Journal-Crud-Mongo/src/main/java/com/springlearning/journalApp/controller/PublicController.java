@@ -18,7 +18,7 @@ public class PublicController {
     public String healthCheck() {
         return "ok";
     }
-    @PostMapping("/create-user")
+    @PostMapping("/signup")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
             userService.saveNewUser(user);
