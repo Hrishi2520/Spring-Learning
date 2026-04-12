@@ -4,6 +4,7 @@ import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserDetailsServiceImpl;
 import com.springlearning.journalApp.service.UserService;
 import com.springlearning.journalApp.utils.JWTUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/public")
 public class PublicController {
@@ -42,12 +44,15 @@ public class PublicController {
         }
     }
 
-    public void login(@RequestBody User user) {
+    public ResponseEntity<String> login(@RequestBody User user) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
+            String jwt = jwtUtils.generateToken(userDetails.getUsername());
+            return new ResponseEntity<>(jwt, HttpStatus.OK);
         } catch (Exception e) {
-
+            log.error("Exception Occurred While createAuthenticationToken ", e);
+            return new ResponseEntity<>("Incorrect Username and Password", HttpStatus.BAD_REQUEST);
         }
     }
 }
