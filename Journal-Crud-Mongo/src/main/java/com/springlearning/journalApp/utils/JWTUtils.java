@@ -44,9 +44,8 @@ public class JWTUtils {
                 .compact();
     }
 
-    public Boolean validateToken(String token, String username) {
-        String extractedUsername = extractUserName(token);
-        return (extractedUsername.equalsIgnoreCase(username) && !isTokenExpired(token));
+    public Boolean validateToken(String token) {
+        return !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
