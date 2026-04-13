@@ -13,7 +13,7 @@ import java.util.Map;
 @Component
 public class JWTUtils {
 
-    private String SECRET_KEY = "jojwdi2w98wu43uhgvui3892429#@(*";
+    private String SECRET_KEY = "hrishikesh-secure-authentication-key_2842WW39!@!@";
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
@@ -24,7 +24,11 @@ public class JWTUtils {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public Date extractExpiration(String token) {
