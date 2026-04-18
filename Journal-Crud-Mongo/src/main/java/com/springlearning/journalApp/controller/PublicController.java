@@ -4,6 +4,7 @@ import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserDetailsServiceImpl;
 import com.springlearning.journalApp.service.UserService;
 import com.springlearning.journalApp.utils.JWTUtils;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +31,13 @@ public class PublicController {
     @Autowired
     private JWTUtils jwtUtils;
 
+    @Operation(summary = "Health Check")
     @GetMapping("/health-check")
     public String healthCheck() {
         return "ok";
     }
+
+    @Operation(summary = "SignUp")
     @PostMapping("/signup")
     public ResponseEntity<User> signup(@RequestBody User user) {
         try {
@@ -44,6 +48,8 @@ public class PublicController {
         }
     }
 
+    @Operation(summary = "Login")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
