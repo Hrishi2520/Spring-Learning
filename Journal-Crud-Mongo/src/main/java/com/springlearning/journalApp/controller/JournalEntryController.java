@@ -4,6 +4,7 @@ import com.springlearning.journalApp.entity.JournalEntry;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.JournalEntryService;
 import com.springlearning.journalApp.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class JournalEntryController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Get All Journals")
     @GetMapping
     public ResponseEntity<?> getAll() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -38,6 +40,7 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Operation(summary = "Create Journal")
     @PostMapping
     public ResponseEntity<?> createJournal(@RequestBody JournalEntry entry) {
         try {
@@ -50,6 +53,7 @@ public class JournalEntryController {
         }
     }
 
+    @Operation(summary = "Get Journal Entry by ID")
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getJournalEntryById(@PathVariable ObjectId id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +69,7 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Operation(summary = "Delete Journal Entry by ID")
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -76,7 +81,7 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @Operation(summary = "Update Journal Entry by ID")
     @PutMapping("/id/{id}")
     public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId id
             , @RequestBody JournalEntry newEntry) {
