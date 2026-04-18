@@ -3,6 +3,7 @@ package com.springlearning.journalApp.controller;
 import com.springlearning.journalApp.cache.AppCache;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class AdminController {
     @Autowired
     private AppCache appCache;
 
+    @Operation(summary = "Get all users")
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers() {
         List<User> all = userService.getAll();
@@ -29,11 +31,13 @@ public class AdminController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Operation(summary = "Create Admin User")
     @PostMapping("/create-admin-user")
     public ResponseEntity<?> createUser(@RequestBody User user) {
        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Operation(summary = "clear app cache")
     @GetMapping("/clear-app-cache")
     public void clearAppCache() {
         appCache.init();
