@@ -4,6 +4,7 @@ import com.springlearning.journalApp.dto.WeatherResponse;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserService;
 import com.springlearning.journalApp.service.WeatherService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class UserController {
     @Autowired
     private WeatherService weatherService;
 
+    @Operation(summary = "Get User By ID")
     @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable ObjectId id) {
         Optional<User> user = userService.getById(id);
@@ -31,6 +33,7 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @Operation(summary = "Get User By Name")
     @GetMapping("/name/{userName}")
     public ResponseEntity<User> getUserByName(@PathVariable String userName) {
         User user = userService.findByUserName(userName);
@@ -39,6 +42,8 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @Operation(summary = "Delete User")
     @DeleteMapping
     public ResponseEntity<?> deleteUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,6 +52,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(summary = "Update User")
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -60,6 +66,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(summary = "Greetings")
     @GetMapping("/city/{city}")
     public ResponseEntity<?> greeting(@PathVariable String city) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
