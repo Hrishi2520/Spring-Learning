@@ -1,5 +1,6 @@
 package com.springlearning.journalApp.controller;
 
+import com.springlearning.journalApp.dto.UserDto;
 import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserDetailsServiceImpl;
 import com.springlearning.journalApp.service.UserService;
@@ -41,8 +42,13 @@ public class PublicController {
 
     @Operation(summary = "SignUp")
     @PostMapping("/signup")
-    public ResponseEntity<User> signup(@RequestBody User user) {
+    public ResponseEntity<User> signup(@RequestBody UserDto userDto) {
         try {
+            User user = new User();
+            user.setUserName(userDto.getUserName());
+            user.setPassword(userDto.getPassword());
+            user.setEmail(userDto.getEmail());
+            user.setSentimentAnalysis(userDto.isSentimentAnalysis());
             userService.saveNewUser(user);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
