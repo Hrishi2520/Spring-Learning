@@ -58,8 +58,11 @@ public class PublicController {
 
     @Operation(summary = "Login")
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
         try {
+            User user = new User();
+            user.setUserName(userDto.getUserName());
+            user.setPassword(userDto.getPassword());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserName());
             String jwt = jwtUtils.generateToken(userDetails.getUsername());

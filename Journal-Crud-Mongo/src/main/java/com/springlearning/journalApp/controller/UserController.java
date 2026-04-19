@@ -29,8 +29,9 @@ public class UserController {
 
     @Operation(summary = "Get User By ID")
     @GetMapping("/id/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable ObjectId id) {
-        Optional<User> user = userService.getById(id);
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        ObjectId  objectId = new ObjectId(id);
+        Optional<User> user = userService.getById(objectId);
         return user.map(User -> new ResponseEntity<>(User, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
