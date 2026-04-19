@@ -5,6 +5,7 @@ import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.UserService;
 import com.springlearning.journalApp.service.WeatherService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User API'S")
 public class UserController {
 
     @Autowired

@@ -5,6 +5,7 @@ import com.springlearning.journalApp.entity.User;
 import com.springlearning.journalApp.service.JournalEntryService;
 import com.springlearning.journalApp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/journal")
+@Tag(name = "Journal API'S")
 public class JournalEntryController {
 
     @Autowired
