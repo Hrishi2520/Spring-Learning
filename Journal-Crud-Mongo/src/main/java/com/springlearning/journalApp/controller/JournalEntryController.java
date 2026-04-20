@@ -57,7 +57,8 @@ public class JournalEntryController {
 
     @Operation(summary = "Get Journal Entry by ID")
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getJournalEntryById(@PathVariable ObjectId id) {
+    public ResponseEntity<?> getJournalEntryById(@PathVariable("id") String myId) {
+        ObjectId id = new ObjectId(myId);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         User user = userService.findByUserName(userName);
